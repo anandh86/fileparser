@@ -51,6 +51,7 @@ void Display()
             break;
 
         case ".xml":
+            dataList = new XmlContentParser().Parse(fileUtility.GetContent(fileName));
             break;
 
         default:
