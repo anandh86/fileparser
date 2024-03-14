@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingAssignmentApp", "src\CodingAssignmentApp\CodingAssignmentApp.csproj", "{9A45AF11-3A9F-4110-A8D6-A7AE0FF98DD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingAssignmentLib", "src\CodingAssignmentLib\CodingAssignmentLib.csproj", "{64FFC366-8377-42F6-B277-2EAE6FCCA487}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingAssignmentTests", "tests\CodingAssignmentTests\CodingAssignmentTests.csproj", "{4E102E0A-464C-4333-8870-CC93BC8C2C21}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A45AF11-3A9F-4110-A8D6-A7AE0FF98DD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A45AF11-3A9F-4110-A8D6-A7AE0FF98DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A45AF11-3A9F-4110-A8D6-A7AE0FF98DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A45AF11-3A9F-4110-A8D6-A7AE0FF98DD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64FFC366-8377-42F6-B277-2EAE6FCCA487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FFC366-8377-42F6-B277-2EAE6FCCA487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FFC366-8377-42F6-B277-2EAE6FCCA487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FFC366-8377-42F6-B277-2EAE6FCCA487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E102E0A-464C-4333-8870-CC93BC8C2C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E102E0A-464C-4333-8870-CC93BC8C2C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E102E0A-464C-4333-8870-CC93BC8C2C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E102E0A-464C-4333-8870-CC93BC8C2C21}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
