@@ -47,4 +47,18 @@ public class XmlContentParserTests
 
         CollectionAssert.AreEqual(expectedData, result);
     }
+
+    [Test]
+    public void Parse_InvalidXml_ReturnsEmptyCollection()
+    {
+        // Arrange
+        string invalidXmlContent = "Invalid XML content";
+
+        // Act
+        IEnumerable<Data> result = _sut.Parse(invalidXmlContent);
+
+        // Assert
+        Assert.IsEmpty(result);
+    }
+
 }

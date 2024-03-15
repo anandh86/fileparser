@@ -40,6 +40,20 @@ public class JsonContentParserTests
 
         CollectionAssert.AreEqual(expectedData, result);
     }
+
+    [Test]
+    public void Parse_InvalidJson_ReturnsEmptyCollection()
+    {
+        // Arrange
+        string invalidJsonContent = "Invalid JSON content";
+
+        // Act
+        IEnumerable<Data> result = _sut.Parse(invalidJsonContent);
+
+        // Assert
+        Assert.IsEmpty(result);
+    }
+
 }
 
 
