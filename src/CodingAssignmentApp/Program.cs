@@ -38,9 +38,24 @@ void Display()
     var fileUtility = new FileUtility(new FileSystem());
     var dataList = Enumerable.Empty<Data>();
 
-    if (fileUtility.GetExtension(fileName) == ".csv")
+    var fileExtension = fileUtility.GetExtension(fileName);
+
+    switch (fileExtension)
     {
-        dataList = new CsvContentParser().Parse(fileUtility.GetContent(fileName));
+        case ".csv":
+            dataList = new CsvContentParser().Parse(fileUtility.GetContent(fileName));
+            break;
+
+        case ".json":
+            dataList = new JsonContentParser().Parse(fileUtility.GetContent(fileName));
+            break;
+
+        case ".xml":
+            dataList = new XmlContentParser().Parse(fileUtility.GetContent(fileName));
+            break;
+
+        default:
+            break;
     }
 
     Console.WriteLine("Data:");

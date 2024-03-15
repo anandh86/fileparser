@@ -9,6 +9,7 @@
     <ItemGroup>
       <PackageReference Include="System.IO.Abstractions" Version="19.2.26" />
       <PackageReference Include="TestableIO.System.IO.Abstractions" Version="19.2.26" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
 </Project>
