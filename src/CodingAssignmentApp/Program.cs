@@ -138,7 +138,9 @@ void ProcessFiles(string searchKey, string[] files)
                 // Check if searchKey is present in the value (case-insensitive)
                 if (data.Key.IndexOf(searchKey, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    Console.WriteLine($"Key: {data.Key}, Value: {data.Value}, FileName:{file}");
+                    // Get the relative path
+                    string relativePath = GetRelativePath(file);
+                    Console.WriteLine($"Key: {data.Key}, Value: {data.Value}, FileName:{relativePath}");
                 }
             }
         }
@@ -146,4 +148,15 @@ void ProcessFiles(string searchKey, string[] files)
 
     Console.WriteLine("Processing completed");
     
+}
+
+string GetRelativePath(string fullPath)
+{
+    // Get the current directory
+    string currentDirectory = Directory.GetCurrentDirectory();
+
+    // Make the file path relative to the current directory
+    Uri fullUri = new Uri(fullPath);
+    Uri relativeUri = new Uri(currentDirectory + Path.DirectorySeparatorChar);
+    return Uri.UnescapeDataString(relativeUri.MakeRelativeUri(fullUri).ToString());
 }
