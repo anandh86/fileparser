@@ -16,14 +16,18 @@ public class JsonContentParser : IContentParser
 
             foreach (JObject item in jsonArray)
             {
-                string key = item["Key"].ToString();
-                string value = item["Value"].ToString();
-                dataList.Add(new Data(key, value));
+                if (item is not null)
+                {
+                    var key = item["Key"]?.ToString();
+                    var value = item["Value"]?.ToString();
+
+                    dataList.Add(new Data(key ?? String.Empty, value ?? String.Empty));
+                }
             }
 
             return dataList;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return dataList;
         }

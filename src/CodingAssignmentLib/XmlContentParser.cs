@@ -11,14 +11,26 @@ namespace CodingAssignmentLib
             {
                 XDocument xmlDoc = XDocument.Parse(content);
 
-                var dataList = from element in xmlDoc.Root.Elements("Data")
-                               select new Data(
-                                   (string)element.Element("Key"),
-                                   (string)element.Element("Value"));
+                var dataList = xmlDoc?.Root?.Elements("Data")
+                    .Select(element =>
+                    {
+                        string? key = element?.Element("Key")?.Value;
+                        string? value = element?.Element("Value")?.Value;
 
-                return dataList;
+                        if (key is not null && value is not null)
+                        {
+                            return new Data(key, value);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Missing data. Returning default value for now.");
+                            return default;
+                        }
+                    });
+
+                return dataList ?? new List<Data>();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new List<Data>();
             }
