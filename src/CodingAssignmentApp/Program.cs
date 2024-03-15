@@ -149,21 +149,21 @@ public class Program
             IEnumerable<Data>? dataList = GetDataList(file);
             if (dataList != null)
             {
-                foreach (Data data in dataList)
+                // Get the relative path
+                string relativePath = GetRelativePath(file);
+
+                SearchDataList searchDataList = new SearchDataList();
+                var retVal = searchDataList.Search(searchKey, dataList);
+
+                if (retVal != null)
                 {
-                    // Check if searchKey is present in the value (case-insensitive)
-                    if (data.Key.IndexOf(searchKey, StringComparison.OrdinalIgnoreCase) >= 0)
+                    foreach (Data data in retVal)
                     {
-                        // Get the relative path
-                        string relativePath = GetRelativePath(file);
                         Console.WriteLine($"Key: {data.Key}, Value: {data.Value}, FileName:{relativePath}");
                     }
                 }
             }
         }
-
-        Console.WriteLine("Processing completed");
-
     }
 
     private static string GetRelativePath(string fullPath)
