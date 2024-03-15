@@ -9,6 +9,8 @@ public class Program
     // Entry point
     public static void Main(string[] args)
     {
+        Init();
+
         Console.WriteLine("Coding Assignment!");
 
         do
@@ -30,9 +32,18 @@ public class Program
                 case "3":
                     return;
                 default:
-                    return;
+                    Console.WriteLine("Invalid operation, try again!");
+                    break;
             }
         } while (true);
+    }
+
+    private static void Init()
+    {
+        // Register new content parsers here
+        ContentParserFactory.RegisterContentParser(".csv", typeof(CsvContentParser));
+        ContentParserFactory.RegisterContentParser(".json", typeof(JsonContentParser));
+        ContentParserFactory.RegisterContentParser(".xml", typeof(XmlContentParser));
     }
 
     private static void Display()
@@ -58,22 +69,14 @@ public class Program
 
         var fileExtension = fileUtility.GetExtension(fileName);
 
-        switch (fileExtension)
+        try
         {
-            case ".csv":
-                dataList = new CsvContentParser().Parse(fileUtility.GetContent(fileName));
-                break;
-
-            case ".json":
-                dataList = new JsonContentParser().Parse(fileUtility.GetContent(fileName));
-                break;
-
-            case ".xml":
-                dataList = new XmlContentParser().Parse(fileUtility.GetContent(fileName));
-                break;
-
-            default:
-                break;
+            IContentParser contentParser = ContentParserFactory.CreateContentParser(fileExtension);
+            dataList = contentParser.Parse(fileUtility.GetContent(fileName));
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Invalid file extension");
         }
 
         return dataList;
