@@ -79,8 +79,8 @@ public class Program
 
         try
         {
-            IContentParser contentParser = ContentParserFactory.CreateContentParser(fileExtension);
-            dataList = contentParser.Parse(fileUtility.GetContent(fileName));
+            IContentParser? contentParser = ContentParserFactory.CreateContentParser(fileExtension);
+            dataList = contentParser?.Parse(fileUtility.GetContent(fileName));
         }
         catch (Exception)
         {

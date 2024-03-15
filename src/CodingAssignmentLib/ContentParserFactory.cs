@@ -12,13 +12,19 @@ namespace CodingAssignmentLib
             contentParsers.Add(type, parserClass);
         }
 
-        public static IContentParser CreateContentParser(string type)
+        public static IContentParser? CreateContentParser(string type)
         {
-            if (!contentParsers.TryGetValue(type, out Type contentParserClass))
+            if (!contentParsers.TryGetValue(type, out var contentParserClass))
             {
                 throw new ArgumentException("Invalid content parser type: " + type);
             }
-            return (IContentParser)Activator.CreateInstance(contentParserClass);
+
+            if (contentParserClass is null)
+            {
+                throw new ArgumentException("No content parser found for type: " + type);
+            }
+
+            return (IContentParser?) Activator.CreateInstance(contentParserClass);
         }
     }
 }
