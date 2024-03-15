@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.IO.Abstractions;
+﻿using System.IO.Abstractions;
 using CodingAssignmentLib;
 using CodingAssignmentLib.Abstractions;
 
@@ -9,6 +7,7 @@ public class Program
     // Entry point
     public static void Main(string[] args)
     {
+        // Initial setup
         Init();
 
         Console.WriteLine("Coding Assignment!");
@@ -65,11 +64,11 @@ public class Program
         }
         else
         {
-            // Handle the case where dataList is null (e.g., log a message or skip processing)
             Console.WriteLine("dataList is null. No data to process.");
         }
     }
 
+    // Helper function to fetch data list based on fileName
     private static IEnumerable<Data>? GetDataList(string fileName)
     {
         var fileUtility = new FileUtility(new FileSystem());
@@ -79,6 +78,7 @@ public class Program
 
         try
         {
+            // Factory creation for parsers
             IContentParser? contentParser = ContentParserFactory.CreateContentParser(fileExtension);
             dataList = contentParser?.Parse(fileUtility.GetContent(fileName));
         }

@@ -3,6 +3,7 @@ using CodingAssignmentLib.Abstractions;
 
 namespace CodingAssignmentLib
 {
+    // Content parser factory with registration
 	public static class ContentParserFactory
 	{
         private static readonly Dictionary<string, Type> contentParsers = new Dictionary<string, Type>();

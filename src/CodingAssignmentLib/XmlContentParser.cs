@@ -23,8 +23,8 @@ namespace CodingAssignmentLib
                         }
                         else
                         {
-                            // Handle cases where key or value is null (e.g., log missing data or return a default Data object)
-                            return default; // Or consider logging, exception, or a default value
+                            Console.WriteLine("Missing data. Returning default value for now.");
+                            return default;
                         }
                     });
 
