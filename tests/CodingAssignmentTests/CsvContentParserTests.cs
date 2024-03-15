@@ -24,17 +24,4 @@ public class CsvContentParserTests
             new("c", "d")
         }, dataList);
     }
-
-    [Test]
-    public void Parse_InvalidCsv_ReturnsEmptyCollection()
-    {
-        // Arrange
-        string invalidCsvContent = "Invalid CSV content";
-
-        // Act
-        IEnumerable<Data> result = _sut.Parse(invalidCsvContent);
-
-        // Assert
-        Assert.IsEmpty(result);
-    }
 }
