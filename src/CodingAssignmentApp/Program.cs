@@ -56,9 +56,17 @@ public class Program
 
         Console.WriteLine("Data:");
 
-        foreach (var data in dataList)
+        if (dataList != null)
         {
-            Console.WriteLine($"Key:{data.Key} Value:{data.Value}");
+            foreach (var data in dataList)
+            {
+                Console.WriteLine($"Key:{data.Key} Value:{data.Value}");
+            }
+        }
+        else
+        {
+            // Handle the case where dataList is null (e.g., log a message or skip processing)
+            Console.WriteLine("dataList is null. No data to process.");
         }
     }
 
