@@ -7,15 +7,22 @@ namespace CodingAssignmentLib
     {
         public IEnumerable<Data> Parse(string content)
         {
-            XDocument xmlDoc = XDocument.Parse(content);
+            try
+            {
+                XDocument xmlDoc = XDocument.Parse(content);
 
-            var dataList = from element in xmlDoc.Root.Elements("Data")
-                       select new Data(
-                           (string)element.Element("Key"),
-                           (string)element.Element("Value")
-                       );
+                var dataList = from element in xmlDoc.Root.Elements("Data")
+                               select new Data(
+                                   (string)element.Element("Key"),
+                                   (string)element.Element("Value")
+                               );
 
-            return dataList;
+                return dataList;
+            }
+            catch (Exception ex)
+            {
+                return new List<Data>();
+            }
         }
     }
 }
