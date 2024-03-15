@@ -14,8 +14,7 @@ namespace CodingAssignmentLib
                 var dataList = from element in xmlDoc.Root.Elements("Data")
                                select new Data(
                                    (string)element.Element("Key"),
-                                   (string)element.Element("Value")
-                               );
+                                   (string)element.Element("Value"));
 
                 return dataList;
             }
