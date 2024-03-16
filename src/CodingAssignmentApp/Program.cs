@@ -45,6 +45,8 @@ public class Program
         ContentParserFactory.RegisterContentParser(".json", typeof(JsonContentParser));
         ContentParserFactory.RegisterContentParser(".xml", typeof(XmlContentParser));
 
+        // Our functionality depends upon file processing and printing out to console
+        // Inject these dependencies to our file processing service
         IFileUtility fileUtility = new FileUtility(new FileSystem());
         IOutputHandler outputHandler = new ConsoleHandler();
 
