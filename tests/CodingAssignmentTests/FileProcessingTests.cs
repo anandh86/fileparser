@@ -35,7 +35,6 @@ public class FileProcessingTests
         string fileName = "myfile.txt";
 
         _mockFileUtility.Setup(x => x.GetExtension(fileName)).Returns(".txt");
-        //_mockFileUtility.Setup(x => x.GetFilesInDirectory("C:\\Temp")).Returns(new[] { "file1.txt", "file2.pdf" });
 
         // Act
         _fileProcessService.DisplayFileContents(fileName);
@@ -46,5 +45,41 @@ public class FileProcessingTests
 
         // Cleanup
         outputHandler.FileContent = null;
+    }
+
+    [Test]
+    public void TestSearchFunctionality()
+    {
+        // Arrange
+        string csvData = "aaaaa,bbbbb" + Environment.NewLine + "ccccc,ddddd" + Environment.NewLine + "eeeee,fffff" + Environment.NewLine + "ggggg,hhhhh" + Environment.NewLine;
+        List<(Data, string)> expectedResult = new List<(Data, string)>()
+        {   new (new Data("aaaaa", "bbbbb"), "data\\data.csv"),
+            new (new Data("aaaaa", "bbbbb"), "data\\data2\\data2.csv")
+        };
+
+        _mockFileUtility.Setup(x => x.GetFilesInDirectory("data"))
+                       .Returns(new[] { "data\\data.csv", "data\\data2\\data2.csv" });
+
+        _mockFileUtility.Setup(x => x.GetRelativePath(It.IsAny<string>()))
+                       .Returns((string path) => path);
+
+        _mockFileUtility.Setup(x => x.GetExtension(It.IsAny<string>()))
+                       .Returns(".csv");
+
+        _mockFileUtility.Setup(x => x.GetContent("data\\data.csv"))
+                       .Returns(csvData);
+
+        _mockFileUtility.Setup(x => x.GetContent("data\\data2\\data2.csv"))
+                       .Returns(csvData);
+
+        // Act
+        _fileProcessService.SearchForKey("aAaAa");
+
+        // Assert
+        List<(Data, string)>? actualResult = outputHandler.SearchResults;
+        CollectionAssert.AreEqual(expectedResult, actualResult);
+
+        // Cleanup
+        outputHandler.SearchResults = null;
     }
 }
