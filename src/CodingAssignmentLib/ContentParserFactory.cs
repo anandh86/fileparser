@@ -17,12 +17,7 @@ namespace CodingAssignmentLib
         {
             if (!contentParsers.TryGetValue(type, out var contentParserClass))
             {
-                throw new ArgumentException("Invalid content parser type: " + type);
-            }
-
-            if (contentParserClass is null)
-            {
-                throw new ArgumentException("No content parser found for type: " + type);
+                return null;
             }
 
             return (IContentParser?) Activator.CreateInstance(contentParserClass);

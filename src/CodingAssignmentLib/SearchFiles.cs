@@ -3,6 +3,7 @@ using CodingAssignmentLib.Abstractions;
 
 namespace CodingAssignmentLib
 {
+    // TODO: This whole class can be removed
     public class SearchFiles
     {
 
@@ -10,8 +11,8 @@ namespace CodingAssignmentLib
         {
             try
             {
-                string[] files = GetFilesInDataDirectory();
-                ProcessFiles(searchKey, files);
+                //string[] files = GetFilesInDataDirectory();
+                //ProcessFiles(searchKey, files);
             }
             catch (DirectoryNotFoundException ex)
             {
@@ -19,7 +20,7 @@ namespace CodingAssignmentLib
                 Console.WriteLine(ex.Message);
             }
         }
-
+#if false
         private static IEnumerable<Data>? GetDataList(string fileName)
         {
             var fileUtility = new FileUtility(new FileSystem());
@@ -41,37 +42,9 @@ namespace CodingAssignmentLib
             return dataList;
         }
 
-        private static string[] GetFilesInDataDirectory()
-        {
-            // Get the current directory
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string dataDirectory = Path.Combine(currentDirectory, "data");
+        
 
-            // Check if 'data' directory exists
-            if (!Directory.Exists(dataDirectory))
-            {
-                throw new DirectoryNotFoundException($"The '{dataDirectory}' directory is not found.");
-            }
 
-            // Store files in 'data' directory in an array
-            List<string> fileList = new List<string>();
-            CollectFilesRecursively(dataDirectory, fileList);
-            return fileList.ToArray();
-        }
-
-        private static void CollectFilesRecursively(string directory, List<string> fileList)
-        {
-            // Collect files in directory
-            string[] files = Directory.GetFiles(directory);
-            fileList.AddRange(files);
-
-            // Recursively collect files in subdirectories
-            string[] subDirectories = Directory.GetDirectories(directory);
-            foreach (string subDirectory in subDirectories)
-            {
-                CollectFilesRecursively(subDirectory, fileList);
-            }
-        }
 
         private static void ProcessFiles(string searchKey, string[] files)
         {
@@ -100,16 +73,7 @@ namespace CodingAssignmentLib
             }
         }
 
-        private static string GetRelativePath(string fullPath)
-        {
-            // Get the current directory
-            string currentDirectory = Directory.GetCurrentDirectory();
-
-            // Make the file path relative to the current directory
-            Uri fullUri = new Uri(fullPath);
-            Uri relativeUri = new Uri(currentDirectory + Path.DirectorySeparatorChar);
-            return Uri.UnescapeDataString(relativeUri.MakeRelativeUri(fullUri).ToString());
-        }
+#endif
     }
 }
 
