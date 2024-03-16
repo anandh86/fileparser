@@ -4,6 +4,7 @@ using CodingAssignmentLib.Abstractions;
 
 public class Program
 {
+    private static FileProcessService _fileProcessService = null!;
     // Entry point
     public static void Main(string[] args)
     {
@@ -43,6 +44,13 @@ public class Program
         ContentParserFactory.RegisterContentParser(".csv", typeof(CsvContentParser));
         ContentParserFactory.RegisterContentParser(".json", typeof(JsonContentParser));
         ContentParserFactory.RegisterContentParser(".xml", typeof(XmlContentParser));
+
+        // Our functionality depends upon file processing and printing out to console
+        // Inject these dependencies to our file processing service
+        IFileUtility fileUtility = new FileUtility(new FileSystem());
+        IOutputHandler outputHandler = new ConsoleHandler();
+
+        _fileProcessService = new FileProcessService(fileUtility, outputHandler);
     }
 
     private static void Display()
@@ -51,43 +59,7 @@ public class Program
 
         var fileName = Console.ReadLine()!;
 
-        var dataList = GetDataList(fileName);
-
-        Console.WriteLine("Data:");
-
-        if (dataList != null)
-        {
-            foreach (var data in dataList)
-            {
-                Console.WriteLine($"Key:{data.Key} Value:{data.Value}");
-            }
-        }
-        else
-        {
-            Console.WriteLine("dataList is null. No data to process.");
-        }
-    }
-
-    // Helper function to fetch data list based on fileName
-    private static IEnumerable<Data>? GetDataList(string fileName)
-    {
-        var fileUtility = new FileUtility(new FileSystem());
-        var dataList = Enumerable.Empty<Data>();
-
-        var fileExtension = fileUtility.GetExtension(fileName);
-
-        try
-        {
-            // Factory creation for parsers
-            IContentParser? contentParser = ContentParserFactory.CreateContentParser(fileExtension);
-            dataList = contentParser?.Parse(fileUtility.GetContent(fileName));
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Invalid file extension");
-        }
-
-        return dataList;
+        _fileProcessService.DisplayFileContents(fileName);
     }
 
     private static void Search()
@@ -95,8 +67,7 @@ public class Program
         Console.WriteLine("Enter the key to search.");
         var keyName = Console.ReadLine()!;
 
-        SearchFiles searchFiles = new SearchFiles();
-        searchFiles.SearchKeyInFiles(keyName);
+        _fileProcessService.SearchForKey(keyName);
     }
 }
 
