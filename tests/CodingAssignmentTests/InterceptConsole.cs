@@ -3,6 +3,9 @@ using CodingAssignmentLib.Abstractions;
 
 namespace CodingAssignmentTests
 {
+    // This class is used for testing purpose.
+    // We capture the output info in our internal data structure
+    // instead of printing out to console for testing purpose.
 	public class InterceptConsole : IOutputHandler
     {
         public List<Data>? FileContent { get; set; }
