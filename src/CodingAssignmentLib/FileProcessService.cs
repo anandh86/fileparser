@@ -86,7 +86,7 @@ public class FileProcessService
         foreach (Data data in dataList)
         {
             // Check if searchKey is present in the value (case-insensitive)
-            if (data.Key.IndexOf(searchKey, StringComparison.OrdinalIgnoreCase) >= 0)
+            if(data.Key.Equals(searchKey, StringComparison.OrdinalIgnoreCase))
             {
                 retList.Add(data);
             }

@@ -110,4 +110,33 @@ public class FileProcessingTests
         // Cleanup
         outputHandler.SearchResults = null;
     }
+
+    [Test]
+    public void Search_Substring_ReturnsNullData()
+    {
+        // Arrange
+        string csvData = "aaaaa,bbbbb" + Environment.NewLine + "ccccc,ddddd" + Environment.NewLine + "eeeee,fffff" + Environment.NewLine + "ggggg,hhhhh" + Environment.NewLine;
+
+        _mockFileUtility.Setup(x => x.GetFilesInDirectory("data"))
+                       .Returns(new[] { "data\\data.csv" });
+
+        _mockFileUtility.Setup(x => x.GetRelativePath(It.IsAny<string>()))
+                       .Returns((string path) => path);
+
+        _mockFileUtility.Setup(x => x.GetExtension(It.IsAny<string>()))
+                       .Returns(".csv");
+
+        _mockFileUtility.Setup(x => x.GetContent("data\\data.csv"))
+                       .Returns(csvData);
+
+        // Act
+        _fileProcessService.SearchForKey("aaaa");
+
+        // Assert
+        List<(Data, string)>? actualResult = outputHandler.SearchResults;
+        Assert.IsNull(actualResult); // search term should match in entirety; substring match should fail
+
+        // Cleanup
+        outputHandler.SearchResults = null;
+    }
 }
